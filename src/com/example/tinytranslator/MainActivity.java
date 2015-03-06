@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
 		RequestET = (EditText) findViewById(R.id.requestET);
 		SubmitBT = (Button) findViewById(R.id.submitBT);
 		ResultTV = (TextView) findViewById(R.id.resultTV);
-		translator = new TranslatorProxy(ResultTV);
+		translator = new TranslatorProxy(this,ResultTV);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
 	{
 		if(isRequestEmpty())
 		{
-			showDialog("Enter a word!");
+			showDialog(getResources().getString(R.string.enter_a_word));
 		}
 		else
 		{

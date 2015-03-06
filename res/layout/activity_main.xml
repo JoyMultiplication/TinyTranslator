@@ -19,7 +19,7 @@
         android:id="@+id/submitBT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Translate" 
+        android:text="@string/translate" 
         android:onClick="onSubmitClick"/>
 
     <TextView
