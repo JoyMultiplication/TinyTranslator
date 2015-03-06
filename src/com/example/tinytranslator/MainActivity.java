@@ -1,6 +1,10 @@
-package com.example.tinydictionary;
+package com.example.tinytranslator;
 
-import logic.IDictionaryProxy;
+import logic.TranslatorProxy;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,7 +18,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	private IDictionaryProxy translator;
+	private TranslatorProxy translator;
 	
 	private EditText RequestET;
 	private Button SubmitBT;
@@ -29,11 +33,7 @@ public class MainActivity extends Activity {
 	{
 		return getRequest().isEmpty();
 	}
-	
-	private void displayResult(String result)
-	{
-		ResultTV.setText(result);
-	}
+
 	
 	@SuppressWarnings("deprecation")
 	private void showDialog(String message)
@@ -51,11 +51,12 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_main);
 		RequestET = (EditText) findViewById(R.id.requestET);
 		SubmitBT = (Button) findViewById(R.id.submitBT);
 		ResultTV = (TextView) findViewById(R.id.resultTV);
+		translator = new TranslatorProxy(ResultTV);
 	}
 
 	@Override
@@ -85,8 +86,11 @@ public class MainActivity extends Activity {
 		}
 		else
 		{
-			String result = translator.getTranslation(getRequest());
-			displayResult(result);
+			try {
+				translator.getTranslation(getRequest());
+			} catch (Exception e) {
+				showDialog(e.getMessage());
+			}
 		}
 	}
 	

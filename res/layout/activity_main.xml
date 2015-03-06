@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="#F5F3E4"
     android:orientation="vertical"
-    tools:context="com.example.tinydictionary.MainActivity" >
+    tools:context="com.example.tinytranslator.MainActivity" >
 
     <EditText
         android:id="@+id/requestET"
@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:gravity="center"
-        android:text="result will be here"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>
