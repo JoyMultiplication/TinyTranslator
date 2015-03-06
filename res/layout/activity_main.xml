@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F3E4"
+    android:orientation="vertical"
+    tools:context="com.example.tinydictionary.MainActivity" >
+
+    <EditText
+        android:id="@+id/requestET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/submitBT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Translate" 
+        android:onClick="onSubmitClick"/>
+
+    <TextView
+        android:id="@+id/resultTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:gravity="center"
+        android:text="result will be here"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</LinearLayout>
