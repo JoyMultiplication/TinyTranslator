@@ -1,29 +1,26 @@
 package com.example.tinytranslator;
 
+import logic.ITranslatorListener;
 import logic.TranslatorProxy;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ITranslatorListener {
 
-	private TranslatorProxy translator;
-	
+	// fields
+	private TranslatorProxy translator;	
 	private EditText RequestET;
-	private Button SubmitBT;
 	private TextView ResultTV;
 	
+	
+	// getters/setters
 	private String getRequest()
 	{
 		return RequestET.getText().toString();
@@ -33,30 +30,31 @@ public class MainActivity extends Activity {
 	{
 		return getRequest().isEmpty();
 	}
-
 	
-	@SuppressWarnings("deprecation")
-	private void showDialog(String message)
-	{
-		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		alertDialog.setTitle("Warning");
-		alertDialog.setMessage(message);
-		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-		public void onClick(DialogInterface dialog, int which) {
-			dialog.cancel();
-		}
-		});
-		alertDialog.show();
+	// ITranslatorListener implementation
+	@Override
+	public void onTranslationLoaded(String translation) {
+		ResultTV.setText(translation);
 	}
-	
+
+	@Override
+	public void onLoadFailed() {
+		showDialog(this.getResources().getString(R.string.something_wrong));
+	}
+
+	@Override
+	public void onFailedConnection() {
+		showDialog(this.getResources().getString(R.string.no_internet));
+	}
+
+	// events handling
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_main);
 		RequestET = (EditText) findViewById(R.id.requestET);
-		SubmitBT = (Button) findViewById(R.id.submitBT);
 		ResultTV = (TextView) findViewById(R.id.resultTV);
-		translator = new TranslatorProxy(this,ResultTV);
+		translator = new TranslatorProxy();	
 	}
 
 	@Override
@@ -92,6 +90,20 @@ public class MainActivity extends Activity {
 				showDialog(e.getMessage());
 			}
 		}
+	} 
+
+	// methods
+	@SuppressWarnings("deprecation")
+	private void showDialog(String message)
+	{
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle("Warning");
+		alertDialog.setMessage(message);
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int which) {
+			dialog.cancel();
+		}
+		});
+		alertDialog.show();
 	}
-	
 }
