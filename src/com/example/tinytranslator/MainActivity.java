@@ -55,6 +55,7 @@ public class MainActivity extends Activity implements ITranslatorListener {
 		RequestET = (EditText) findViewById(R.id.requestET);
 		ResultTV = (TextView) findViewById(R.id.resultTV);
 		translator = new TranslatorProxy();	
+		translator.addListener(this);
 	}
 
 	@Override
